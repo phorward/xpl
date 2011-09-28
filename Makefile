@@ -30,7 +30,7 @@ XPL_OBJECTS		= 	\
 all: $(XPL)
 
 $(XPL): $(XPL_SOURCE) Makefile
-	cc -g -o $@ $(XPL_SOURCE)
+	$(CC) -o $@ $(XPL_SOURCE)
 
 $(XPL_PARSER_C): $(XPL_PARFILE)
 	unicc -svwb $(XPL_PARSER) $(XPL_PARFILE)
