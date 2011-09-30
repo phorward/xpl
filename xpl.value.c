@@ -64,7 +64,7 @@ xpl_value* xpl_value_dup( xpl_value* val )
     dup = xpl_value_create();
     
     if( !val )
-		return dup;
+        return dup;
 
     memcpy( dup, val, sizeof( xpl_value ) );
     
@@ -136,7 +136,7 @@ float xpl_value_get_float( xpl_value* val )
 char* xpl_value_get_string( xpl_value* val )
 {
     char    buf     [ 128 + 1 ];
-    char*	p;
+    char*   p;
     
     val->strval = xpl_free( val->strval );
 
@@ -151,17 +151,17 @@ char* xpl_value_get_string( xpl_value* val )
             
             /* Remove trailing zeros to make values look nicer */            
             for( p = buf + strlen( buf ) - 1; p > buf; p-- )
-			{
-				if( *p == '.' )
-				{
-					*p = '\0';
-					break;
-				}
-				else if( *p != '0' )
-					break;
+            {
+                if( *p == '.' )
+                {
+                    *p = '\0';
+                    break;
+                }
+                else if( *p != '0' )
+                    break;
 
-				*p = '\0';
-			}
+                *p = '\0';
+            }
             
             val->strval = xpl_strdup( buf );
             return val->strval;

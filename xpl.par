@@ -4,7 +4,7 @@
 #parser                 "XPL";
 #description            "eXample Programming Language";
 #copyright              "In the public domain, 2011";
-#version                "0.1";
+#version                "0.2";
 #prefix                 "xpl";
 
 #default action         [* @@ = @1; *];
@@ -275,14 +275,14 @@ expression          ->      variable "=" expression
                     |       function '(' parameter_list? ')'
                     
                             [*
-								/*
-									Semantic checks if the function
-									parameters are in a valid count.
-								*/
-								if( xpl_check_function_parameters(
-										@function, @parameter_list,
-											pcb->line ) )
-									pcb->error_count++;
+                                /*
+                                    Semantic checks if the function
+                                    parameters are in a valid count.
+                                */
+                                if( xpl_check_function_parameters(
+                                        @function, @parameter_list,
+                                            pcb->line ) )
+                                    pcb->error_count++;
                                 
                                 /* We first push the number of parameters */
                                 xpl_emit( pcb->prog, XPL_LIT,

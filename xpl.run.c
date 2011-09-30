@@ -26,14 +26,14 @@ static xpl_value* xpl_pop( xpl_runtime* rt )
 
 static void xpl_stack( xpl_runtime* rt )
 {
-	int		i;
+    int     i;
 
-	for( i = 0; i < rt->stack_cnt; i++ )
-		fprintf( stderr, "% 3d: %s\n", i,
-					xpl_value_get_string( rt->stack[ i ] ) );
-					
-	if( !i )
-		fprintf( stderr, "--- Stack is empty ---\n" );
+    for( i = 0; i < rt->stack_cnt; i++ )
+        fprintf( stderr, "% 3d: %s\n", i,
+                    xpl_value_get_string( rt->stack[ i ] ) );
+                    
+    if( !i )
+        fprintf( stderr, "--- Stack is empty ---\n" );
 }
 
 void xpl_run( xpl_program* prog )
@@ -52,11 +52,11 @@ void xpl_run( xpl_program* prog )
     /* Program execution loop */
     while( rt.ip < prog->program + prog->program_cnt )
     {
-		/*
-		fprintf( stderr, "IP: %p\n", rt.ip );		
-		xpl_dump( prog, &rt );
-		xpl_stack( &rt );
-		*/
+        /*
+        fprintf( stderr, "IP: %p\n", rt.ip );       
+        xpl_dump( prog, &rt );
+        xpl_stack( &rt );
+        */
         switch( rt.ip->op )
         {
             case XPL_NOP:
@@ -75,7 +75,7 @@ void xpl_run( xpl_program* prog )
                     
                     /* Call the function */
                     val = (*(xpl_buildin_functions[ rt.ip->param ].fn))
-							( param_cnt, rt.stack + rt.stack_cnt - param_cnt );
+                            ( param_cnt, rt.stack + rt.stack_cnt - param_cnt );
                     
                     /* If no value is returned, create a default value */
                     if( !val )
