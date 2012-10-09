@@ -39,7 +39,6 @@ static void xpl_stack( xpl_runtime* rt )
 void xpl_run( xpl_program* prog )
 {
     xpl_runtime rt;
-    xpl_value*  val;
     int         i;
     
     /* Initialize runtime */
@@ -67,6 +66,7 @@ void xpl_run( xpl_program* prog )
                 /* Calling build-in functions */
                 {
                     int     param_cnt;
+					xpl_value*  val;
                     
                     /* Last stack item contains the number of parameters */
                     val = xpl_pop( &rt );
@@ -114,10 +114,13 @@ void xpl_run( xpl_program* prog )
                 break;
                 
             case XPL_DUP:
-                /* Duplicate stack item */
-                val = xpl_pop( &rt );
-                xpl_push( &rt, val );
-                xpl_push( &rt, xpl_value_dup( val ) );
+				{
+					/* Duplicate stack item */
+					xpl_value*  val;
+					val = xpl_pop( &rt );
+					xpl_push( &rt, val );
+					xpl_push( &rt, xpl_value_dup( val ) );
+				}
                 break;
                 
             case XPL_DRP:
@@ -131,21 +134,25 @@ void xpl_run( xpl_program* prog )
                 continue;
 
             case XPL_JPC:
-                /* Jump to address only if stacked value is nonzero */
-                if( !xpl_value_get_integer( ( val = xpl_pop( &rt ) ) ) )
-                {
-                    xpl_value_free( val );
-                    rt.ip = prog->program + rt.ip->param;
-                    continue;
-                }
-                
-                xpl_value_free( val );
+				{
+					xpl_value*  val;
+					/* Jump to address only if stacked value is nonzero */
+					if( !xpl_value_get_integer( ( val = xpl_pop( &rt ) ) ) )
+					{
+						xpl_value_free( val );
+						rt.ip = prog->program + rt.ip->param;
+						continue;
+					}
+	                
+					xpl_value_free( val );
+				}
                 break;
                                 
             default:
                 {
                     xpl_datatype    prefer;
                     xpl_value*      op  [ 2 ];
+					xpl_value*  val;
                     
                     /* Pop operands off the stack */
                     op[1] = xpl_pop( &rt );
@@ -305,6 +312,9 @@ void xpl_run( xpl_program* prog )
                                         val = xpl_value_create_integer(
                                                 res >= 0 ? 1 : 0 );
                                         break;
+									default:
+										val = xpl_value_create_integer( 0 );
+										break;
                                 }
                             }
                         }
