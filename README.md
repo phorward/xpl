@@ -45,9 +45,9 @@ statement		:	@("if" '(' expression ')' statement ('else' statement)?)
 				;
 
 expression		:	@(expression "==" arith)
-        		|	@(expression "!=" arith)
-        		|	@(expression "<" arith)
-        		|	@(expression ">" arith)
+				|	@(expression "!=" arith)
+				|	@(expression "<" arith)
+				|	@(expression ">" arith)
 				|	@(expression "<=" arith)
 				|	@(expression ">=" arith)
 				|	assign
