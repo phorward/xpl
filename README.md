@@ -28,62 +28,62 @@ The syntax described in GDL (Phorward Grammar Definition Language) can be
 seen below and was implemented as a parser using [pynetree](https://github.com/phorward/pynetree).
 
 ```
-%skip			/\\s+/ ;
+%skip           /\\s+/ ;
 
-@REAL			/\\d+\\.\\d*|\\d*\\.\\d+/ ;
-@INTEGER		/\\d+/ ;
-@STRING			/"[^"]*"/ ;
-@IDENT			/\\w+/ ;
+@REAL           /\\d+\\.\\d*|\\d*\\.\\d+/ ;
+@INTEGER        /\\d+/ ;
+@STRING         /"[^"]*"/ ;
+@IDENT          /\\w+/ ;
 
-program$ 		:	statement* ;
+program$        :   statement* ;
 
-statement		:	@("if" '(' expression ')' statement ('else' statement)?)
-				| 	@("while" '(' expression ')' statement)
-				| 	'{' statement* '}'
-				| 	expression ';'
-				|	';'
-				;
+statement       :   @("if" '(' expression ')' statement ('else' statement)?)
+                |   @("while" '(' expression ')' statement)
+                |   '{' statement* '}'
+                |   expression ';'
+                |   ';'
+                ;
 
-expression		:	@(expression "==" arith)
-				|	@(expression "!=" arith)
-				|	@(expression "<" arith)
-				|	@(expression ">" arith)
-				|	@(expression "<=" arith)
-				|	@(expression ">=" arith)
-				|	assign
-				|	arith
-				;
+expression      :   @(expression "==" arith)
+                |   @(expression "!=" arith)
+                |   @(expression "<" arith)
+                |   @(expression ">" arith)
+                |   @(expression "<=" arith)
+                |   @(expression ">=" arith)
+                |   assign
+                |   arith
+                ;
 
-@assign			:	IDENT "=" expression ;
+@assign         :   IDENT "=" expression ;
 
-arith			:	@(arith "+" term)
-				|	@(arith "-" term)
-				|	term
-				;
+arith           :   @(arith "+" term)
+                |   @(arith "-" term)
+                |   term
+                ;
 
-term			:	@(term "*" factor)
-				|	@(term "/" factor)
-				|	factor
-				;
+term            :   @(term "*" factor)
+                |   @(term "/" factor)
+                |   factor
+                ;
 
-factor			:	@("-" atom)
-				|	atom
-				;
+factor          :   @("-" atom)
+                |   atom
+                ;
 
-atom			:	'(' expression ')'
-				|	function_call
-				|	IDENT
-				| 	REAL
-				|	INTEGER
-				|	STRING
-				;
+atom            :   '(' expression ')'
+                |   function_call
+                |   IDENT
+                |   REAL
+                |   INTEGER
+                |   STRING
+                ;
 
-@function_call	:	IDENT '(' parameter_list? ')'
-				;
+@function_call  :   IDENT '(' parameter_list? ')'
+                ;
 
-parameter_list	:	parameter_list ',' expression
-				|	expression
-				;
+parameter_list  :   parameter_list ',' expression
+                |   expression
+                ;
 ```
 
 # Example
