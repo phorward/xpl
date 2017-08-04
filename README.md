@@ -125,12 +125,12 @@ xpl is developed and maintained by Jan Max Meyer, Phorward Software Technologies
 
 Some other projects by the author are:
 
--   (pynetree)[http://pynetree.org]: A light-weight parsing toolkit
+-   [pynetree](http://pynetree.org): A light-weight parsing toolkit
     written in pure Python.
--   (phorward)[http://phorward.phorward-software.com]: A free toolkit
+-   [phorward](http://phorward.phorward-software.com): A free toolkit
     for parser development, lexical analysis, regular expressions and
     more.
--   (JS/CC)[http://jscc.brobston.com]: The JavaScript parser generator.
+-   [JS/CC](http://jscc.brobston.com): The JavaScript parser generator.
 
 
 # License
