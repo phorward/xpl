@@ -18,14 +18,14 @@ typedef enum
 typedef struct
 {
     xpl_datatype    type;                   /* Value type */
-    
+
     union
     {
         int         i;
         float       f;
         char*       s;
     } value;                                /* Value storage union */
-    
+
     char*           strval;                 /* Temporary string value
                                                 representation pointer */
 } xpl_value;
@@ -61,7 +61,7 @@ typedef enum
     XPL_GEQ,                                /* Check for greater-equal */
 
     XPL_ADD,                                /* Add or join two values */
-    XPL_SUB,                                /* Substract two values */
+    XPL_SUB,                                /* Subtract two values */
     XPL_MUL,                                /* Multiply two values */
     XPL_DIV                                 /* Divide two values */
 } xpl_op;
@@ -77,7 +77,7 @@ typedef struct
 typedef struct
 {
     xpl_cmd*    program;                    /* Virtual machine program */
-    int         program_cnt;                /* Numer of elements in program */
+    int         program_cnt;                /* Number of elements in program */
 
     xpl_value** literals;                   /* Array of literal objects */
     int         literals_cnt;               /* Number of elements in literals */
@@ -110,8 +110,8 @@ typedef struct
                                                 the numbers of elements
                                                 resisting.
                                             */
-    
-    xpl_cmd*    ip;                         /* Instruction Pointer to the 
+
+    xpl_cmd*    ip;                         /* Instruction Pointer to the
                                                 currently executed code
                                                 address.
                                             */

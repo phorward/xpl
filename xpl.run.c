@@ -257,9 +257,9 @@ void xpl_run( xpl_program* prog )
                                 float   res;
                                 
                                 /* 
-                                 * Compare by substracting the left operand
+                                 * Compare by subtracting the left operand
                                  * from the right operand, or with the string
-                                 * comparion function strcmp, resulting in:
+                                 * comparison function strcmp, resulting in:
                                  * 
                                  * res == 0                 equal
                                  * res != 0                 not equal
