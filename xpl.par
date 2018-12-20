@@ -1,10 +1,4 @@
 #!language              "C";
-
-//Meta information
-#parser                 "XPL";
-#description            "eXample Programming Language";
-#copyright              "In the public domain, 2011";
-#version                "0.2";
 #prefix                 "xpl";
 
 #default action         [* @@ = @1; *];
@@ -42,7 +36,7 @@
 #lexeme             real
                     ;
 
-real<float>         ->       real_integer '.' real_fraction
+real<float>         :       real_integer '.' real_fraction
 
                             [*  @@ = @real_integer + @real_fraction; *]
 
@@ -55,7 +49,7 @@ real<float>         ->       real_integer '.' real_fraction
                             [*  @@ = @real_fraction; *]
                     ;
 
-real_integer<float> ->      real_integer '0-9':dig
+real_integer<float> :       real_integer '0-9':dig
 
                             [* @@ = 10 * @real_integer + @dig - '0'; *]
 
@@ -64,7 +58,7 @@ real_integer<float> ->      real_integer '0-9':dig
                             [*  @@ = @dig - '0'; *]
                     ;
                     
-real_fraction<float>->      real_fraction '0-9':dig
+real_fraction<float>:      real_fraction '0-9':dig
                             
                             [* @@ = ( @real_fraction - '0' + @dig ) / 10.0; *]
 
@@ -77,15 +71,15 @@ real_fraction<float>->      real_fraction '0-9':dig
 #whitespaces        whitespace
                     ;
 
-whitespace          ->      ' \r\n\t'+
+whitespace          :      ' \r\n\t'+
                     |       "//" !'\n'* '\n'
                     ;
 
 //Goal symbol
-program$            ->      statement*
+program$            :      statement*
                     ;
 
-statement           ->      "if" '(' expression ')'
+statement           :      "if" '(' expression ')'
                              
                             (
                                 [*
@@ -147,8 +141,8 @@ statement           ->      "if" '(' expression ')'
                                 
                             [*
                                 @@ = xpl_emit( pcb->prog, XPL_JMP, @begin );
-                                pcb->prog->program[ @jpc ].param =
-                                    pcb->prog->program_cnt;
+                                        pcb->prog->program[ @jpc ].param =
+                                            pcb->prog->program_cnt;
                             *]
                     
                     |       '{' statement* '}'
@@ -161,7 +155,7 @@ statement           ->      "if" '(' expression ')'
                     |       ';'
                     ;
 
-expression          ->      variable "=" expression
+expression          :      variable "=" expression
                             [*
                                 xpl_emit( pcb->prog, XPL_DUP, 0 );
                                 xpl_emit( pcb->prog, XPL_STO, @variable );
@@ -295,7 +289,7 @@ expression          ->      variable "=" expression
                             *]
                     ;
 
-parameter_list<int> ->      parameter_list ',' expression
+parameter_list<int> :      parameter_list ',' expression
                             [* @@ = @parameter_list + @expression; *]
 
                     |       expression
@@ -304,7 +298,7 @@ parameter_list<int> ->      parameter_list ',' expression
                     ;
 
 variable
-function <int>    ->      @identifier
+function <int>    :      @identifier
 
                             [*
                                 if( ( @@ = xpl_get_function( @identifier ) )

@@ -6,6 +6,7 @@ void xpl_dump( xpl_program* prog, xpl_runtime* rt );
 
 /* xpl.functions.c */
 int xpl_get_function( char* name );
+int xpl_check_function_parameters( int function, int parameter_count, int line );
 xpl_value* XPL_print( int argc, xpl_value** argv );
 xpl_value* XPL_prompt( int argc, xpl_value** argv );
 xpl_value* XPL_exit( int argc, xpl_value** argv );

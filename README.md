@@ -1,94 +1,28 @@
-**xpl**: *An eXample Programming Language!*
+# xpl
 
-# About
+**xpl**: *eXample Programming Language*.
 
-**xpl** is a tiny toy programming language implemented in the course of the manual of the [UniCC Parser Generator](https://github.com/phorward/unicc).
-Please check out the [UniCC User's Manual](http://phorward.info/download/unicc/unicc.pdf) for implementation details.
+## About
 
-# Features
+**xpl** is a tiny toy programming language that is implemented in the course of the [UniCC Parser Generator](https://github.com/phorward/unicc)'s User Manual.
+Please check out the [User's Manual](http://phorward.info/download/unicc/unicc.pdf) for implementation details.
 
-- C-like syntax
-- Typeless language
+## Features
+
+- C-like language [syntax](https://github.com/phorward/xpl/blob/master/xpl.par)
 - Arithmetic and conditional expressions
-- Support of integer, floating point and string values
+- Dynamically typed
+- 3 data-types: integer, float, string
 - Simple control structures (conditionals, iterations)
-- Variable assignments
-- Nested calls to build-in functions with variable arguments
-- The functions should provide simple data manipulation routines and input/output facilities
+- 6 build-in functions for simple data manipulation routines and input/output facilities: exit(), print(), prompt(), integer(), float(), string() 
 
-# Compiling
+## Building
 
-To compile xpl, you need [unicc](https://github.com/phorward/unicc) and any C-compiler. The provided Makefile should do all the rest for you.
+To build `xpl`, you need UniCC and any C-compiler. The provided Makefile should do all the rest for you, when `unicc` is in the PATH.
 
-# Syntax
+## Example
 
-The original syntax can be obtained from `xpl.par`.
-
-The syntax described in GDL (Phorward Grammar Definition Language) can be
-seen below and was implemented as a parser using [pynetree](https://github.com/phorward/pynetree).
-
-```
-%skip           /\\s+/ ;
-
-@REAL           /\\d+\\.\\d*|\\d*\\.\\d+/ ;
-@INTEGER        /\\d+/ ;
-@STRING         /"[^"]*"/ ;
-@IDENT          /\\w+/ ;
-
-program$        :   statement* ;
-
-statement       :   @("if" '(' expression ')' statement ('else' statement)?)
-                |   @("while" '(' expression ')' statement)
-                |   '{' statement* '}'
-                |   expression ';'
-                |   ';'
-                ;
-
-expression      :   @(expression "==" arith)
-                |   @(expression "!=" arith)
-                |   @(expression "<" arith)
-                |   @(expression ">" arith)
-                |   @(expression "<=" arith)
-                |   @(expression ">=" arith)
-                |   assign
-                |   arith
-                ;
-
-@assign         :   IDENT "=" expression ;
-
-arith           :   @(arith "+" term)
-                |   @(arith "-" term)
-                |   term
-                ;
-
-term            :   @(term "*" factor)
-                |   @(term "/" factor)
-                |   factor
-                ;
-
-factor          :   @("-" atom)
-                |   atom
-                ;
-
-atom            :   '(' expression ')'
-                |   function_call
-                |   IDENT
-                |   REAL
-                |   INTEGER
-                |   STRING
-                ;
-
-@function_call  :   IDENT '(' parameter_list? ')'
-                ;
-
-parameter_list  :   parameter_list ',' expression
-                |   expression
-                ;
-```
-
-# Example
-
-The "99 bottles of beer" program exposed in xpl:
+The "99 bottles of beer" program implemented in xpl.
 
 ```c
 if( ( bottles = prompt( "Enter number of bottles [default=99]" ) ) == "" )
@@ -119,17 +53,16 @@ while( bottles > 0 )
 }
 ```
 
-# Author
+Run it after building with
 
-xpl is developed and maintained by Jan Max Meyer, Phorward Software Technologies.
+```bash
+./xpl 99bottles.xpl
+```
 
-Some other projects by the author are:
+## Credits
 
-- [unicc](http://unicc.phorward-software.com): The universal LALR(1) parser generator.
-- [phorward](http://phorward.phorward-software.com): A free toolkit for parser development, lexical analysis, regular expressions and more.
-- [pynetree](http://pynetree.org): A light-weight parsing toolkit written in pure Python.
-- [JS/CC](http://jscc.brobston.com): The JavaScript parser generator.
+*xpl* is developed and maintained by [Jan Max Meyer](https://github.com/phorward/), Phorward Software Technologies.
 
-# License
+## License
 
 xpl is under the WTFPL.

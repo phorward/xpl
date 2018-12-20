@@ -1,4 +1,4 @@
-XPL				= 	xpl
+XPL				= xpl
 
 XPL_PARFILE		= xpl.par
 XPL_PARSER		= xpl.parser
@@ -33,7 +33,7 @@ $(XPL): $(XPL_SOURCE) Makefile
 	$(CC) -o $@ $(XPL_SOURCE)
 
 $(XPL_PARSER_C): $(XPL_PARFILE)
-	unicc -svwb $(XPL_PARSER) $(XPL_PARFILE)
+	unicc -w -o $(XPL_PARSER) $(XPL_PARFILE)
 
 clean:
 	rm -f $(XPL_PARSER_C)
